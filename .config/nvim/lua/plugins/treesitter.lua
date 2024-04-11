@@ -1,10 +1,12 @@
-return {
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "ninja", "python", "rst", "toml" })
+    return {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate",
+      config = function()
+          local configs = require("nvim-treesitter.configs")
+          configs.setup({
+          auto_install = true,
+          ensure_installed = {  "lua", "vim", "vimdoc",  "javascript", "html", "python"},
+          sync_install = false,
+          highlight = { enable = true },
+          indent = { enable = true},
+        })
       end
-    end,
-  }, -- add pyright to lspconfig
-}
+    }
